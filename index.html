@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cafe Website</title>
+    <style>
+        /* Styles for simplicity */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 10px 0;
+            background-color: #f2f2f2;
+        }
+
+        /* Styles specific to the menu */
+        .menu-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .menu-item img {
+            width: 100px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="?page=home">Home</a></li>
+        <li><a href="?page=menu">Menu</a></li>
+        <li><a href="?page=contact">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <?php
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+        $pages = ['home', 'menu', 'contact']; // List of valid pages
+
+        if (in_array($page, $pages)) {
+            include_once "pages/$page.php";
+        } else {
+            include_once 'pages/home.php'; // Default to home page if invalid page requested
+        }
+    } else {
+        include_once 'pages/home.php'; // Display home page by default
+    }
+    ?>
+</div>
+
+<footer>
+    <p>&copy; <?php echo date("Y"); ?> Cafe Website</p>
+</footer>
+
+</body>
+</html>
+<h2>Our Menu</h2>
+<div class="menu-item">
+    <p>Espresso - $2.50</p>
+</div>
+<div class="menu-item">
+    <p>Cappuccino - $3.00</p>
+</div>
+<h2>Contact Us</h2>
+<form action="send_message.php" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+    <input type="submit" value="Submit">
+</form>
